@@ -20,7 +20,7 @@
                  </div>
                  <!-- Dropdown menu -->
                  <div
-                    class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
+                    class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
                     id="dropdown">
                     <div class="py-3 px-4">
                        <span class="block text-sm font-semibold text-gray-900 dark:text-white">Neil
@@ -107,7 +107,7 @@
                        & Lokasi</a>
                  </li>
                  <li>
-                    <a href="#"
+                    <a href="{{ route('monitoring.aktivitas') }}"
                        class="flex items-center p-2 pl-11 w-full text-base font-sm  text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Monitoring
                        Aktivitas</a>
                  </li>

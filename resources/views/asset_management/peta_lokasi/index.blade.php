@@ -4,7 +4,8 @@
    <div class="bg-white dark:bg-gray-800 relative sm:rounded-lg overflow-hidden">
       <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
          <div class="w-full md:w-1/2">
-            <h1 class="text-2xl font-bold mb-2 text-green-700 dark:text-gray-200">Peta Alsintan</h1>
+            <h1 class="text-2xl font-bold mb-2 text-green-700 dark:text-gray-200">Peta lokasi alat mesin dan pertanian
+            </h1>
          </div>
 
       </div>
@@ -20,22 +21,22 @@
             </thead>
             <tbody>
                <tr>
-                  <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <th scope="row" class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                      Traktor</th>
-                  <td class="px-4 py-3">
-                     <div class="absolute right-0 top-7 content-center sm:relative sm:right-auto sm:top-auto">
-                        <span
-                           class=" inline-flex items-center rounded-lg bg-red-100 px-3 py-1.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-300">
-                           <svg class="me-1 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                              width="24" height="24" fill="none" viewBox="0 0 24 24">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                 stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
-                           </svg>
-                           Stop
-                        </span>
-                     </div>
+                  <td class="px-4 py-2">
+
+                     <span
+                        class=" inline-flex items-center rounded-lg bg-red-100 px-3 py-1.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-300">
+                        <svg class="me-1 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                           height="24" fill="none" viewBox="0 0 24 24">
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M6 18 17.94 6M18 18 6.06 6" />
+                        </svg>
+                        Stop
+                     </span>
+
                   </td>
-                  <td class="px-4 py-3">
+                  <td class="px-4 py-2">
                      <a href="{{ route('peta.lokasi.alsintan') }}"
                         class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                         Lihat Lokasi
@@ -44,29 +45,28 @@
                   </td>
                </tr>
                <tr>
-                  <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <th scope="row" class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                      Mesin Gabah</th>
-                  <td class="px-4 py-3">
-
-                     <div class="absolute right-0 top-7 content-center sm:relative sm:right-auto sm:top-auto">
-                        <span
-                           class="inline-flex items-center rounded bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300">
-                           <svg class="me-1 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                              width="24" height="24" fill="none" viewBox="0 0 24 24">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                 stroke-width="2"
-                                 d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z" />
-                           </svg>
-                           Ongoing
-                        </span>
-                     </div>
+                  <td class="px-4 py-2">
+                     <span
+                        class=" inline-flex items-center rounded-lg bg-blue-100 px-3 py-1.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                        <svg class="w-3 h-3 me-1 text-gray-800 dark:text-white" aria-hidden="true"
+                           xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                           viewBox="0 0 24 24">
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 8v4l3 3M3.22302 14C4.13247 18.008 7.71683 21 12 21c4.9706 0 9-4.0294 9-9 0-4.97056-4.0294-9-9-9-3.72916 0-6.92858 2.26806-8.29409 5.5M7 9H3V5" />
+                        </svg>
+                        On Going
+                     </span>
                   </td>
-                  <td class="px-4 py-3">Apple</td>
+                  <td class="px-4 py-2">Apple</td>
                </tr>
             </tbody>
          </table>
       </div>
-      <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+      <nav
+         class="flex
+                     flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
          aria-label="Table navigation">
          <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
             Showing
