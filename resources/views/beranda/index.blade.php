@@ -3,9 +3,9 @@
       <div class="w-full sm:w-1/2 md:w-1/4 mb-4 md:mb-0">
          <img src="{{ asset('images/beranda.png') }}" alt="Ilustrasi Mekanisasi" class="w-full h-auto rounded-lg" />
       </div>
-      <div class="w-full sm:w-1/2 md:w-3/4 text-gray-800 dark:text-gray-200">
-         <h2 class="text-xl font-bold mb-2">Sistem Mekanisasi Pertanian</h2>
-         <p class="text-base">
+      <div class="w-full sm:w-1/2 md:w-3/4 ">
+         <h2 class="text-2xl font-bold mb-2 text-green-700 dark:text-gray-200">Sistem Mekanisasi Pertanian</h2>
+         <p class="text-base text-black dark:text-gray-200">
             Selamat datang di Sistem Mekanisasi Pertanian, sebuah platform inovatif yang dirancang untuk
             mendukung transformasi pertanian menuju era modern yang efisien dan berbasis teknologi.
             Melalui integrasi data dan pemantauan alat secara real-time, kami membantu petani dan pelaku
