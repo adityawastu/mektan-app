@@ -1,6 +1,6 @@
 <?php
 
-use index;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\PetaLokasiController;
