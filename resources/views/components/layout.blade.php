@@ -27,9 +27,7 @@
          <div class="rounded-2xl shadow-sm h-auto bg-white dark:bg-gray-800 p-6">
             {{ $slot }}
          </div>
-
    </div>
-
    </main>
    </div>
 </body>

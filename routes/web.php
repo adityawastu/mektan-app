@@ -1,10 +1,13 @@
 <?php
 
-
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\PetaLokasiController;
 use App\Http\Controllers\MonitoringAlsintanController;
+
+//auth
+Route::get('/login', [AuthController::class, 'showlogin']) ->name('login');
 
 
 //beranda
