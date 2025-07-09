@@ -14,9 +14,13 @@
                        alt="user photo" />
                  </button>
                  <div class="py-3 px-4">
-                    <span class="block text-sm font-semibold text-gray-900 dark:text-white">Ucok
-                       bucuk</span>
-                    <span class="block text-sm text-gray-900 truncate dark:text-white">name@flowbite.com</span>
+                    <span class="block text-sm font-semibold text-gray-900 dark:text-white">
+                       {{ Auth::user()->name }}
+                    </span>
+                    <span class="block text-sm text-gray-900 truncate dark:text-white">
+                       {{ Auth::user()->email }}
+                    </span>
+
                  </div>
                  <!-- Dropdown menu -->
                  <div
@@ -42,9 +46,13 @@
 
                     <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
                        <li>
-                          <a href="#"
-                             class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
-                             out</a>
+                          <form method="POST" action="{{ route('logout') }}">
+                             @csrf
+                             <button type="submit"
+                                class="block w-full text-left py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                Sign out
+                             </button>
+                          </form>
                        </li>
                     </ul>
                  </div>
