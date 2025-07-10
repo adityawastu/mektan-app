@@ -1,4 +1,12 @@
 <x-layout>
+   <a href="{{ url()->previous() }}"
+      class="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-white bg-green-700 rounded hover:bg-green-800">
+      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+         xmlns="http://www.w3.org/2000/svg">
+         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+      </svg>
+      Kembali
+   </a>
    <div class="flex items-center justify-between mb-4">
       <h1 class="text-black text-xl">Lokasi Real Time Traktor A</h1>
       <span id="realtime-clock" class="text-sm text-gray-600"></span>

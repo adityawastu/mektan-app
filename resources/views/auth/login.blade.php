@@ -6,7 +6,7 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    @vite(['resources/css/app.css', 'resources/js/app.js'])
-   <title>Mektan-App</title>
+   <title>GreenTek</title>
 </head>
 
 <body class="bg-gray-100">
@@ -32,7 +32,7 @@
          <div class="w-full max-w-md">
             <div class="text-center mb-8">
                <img src="{{ asset('images/logo-mektan.png') }}" alt="Logo" class="w-20 mx-auto mb-2">
-               <h2 class="text-lg text-green-600 font-semibold">Balai Mekanisasi Pertanian</h2>
+               <h2 class="text-lg text-green-600 font-semibold">GreenTrek/Balai Mekanisasi Pertanian</h2>
             </div>
 
             <form method="POST" action="{{ route('login') }}" class="space-y-6">
