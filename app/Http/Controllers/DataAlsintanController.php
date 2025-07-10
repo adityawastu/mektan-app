@@ -48,4 +48,9 @@ class DataAlsintanController extends Controller
 
     return redirect()->route('index_alsintan')->with('success', 'Data berhasil ditambahkan!');
   }
+  public function show($id)
+  {
+    $alsintan = DataAlsintan::with(['category', 'merk'])->findOrFail($id);
+    return view('asset_management.data_alsintan.show_alsintan', compact('alsintan'));
+  }
 }

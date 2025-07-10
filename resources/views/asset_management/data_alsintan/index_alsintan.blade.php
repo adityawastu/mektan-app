@@ -19,6 +19,7 @@
                   <th scope="col" class="px-4 py-2">Kategori</th>
                   <th scope="col" class="px-4 py-2">Merk</th>
                   <th scope="col" class="px-4 py-2">Stock</th>
+                  <th scope="col" class="px-4 py-2">Aksi</th> <!-- Kolom baru untuk tombol -->
                </tr>
             </thead>
             <tbody>
@@ -36,6 +37,13 @@
                      <td class="px-4 py-2">
                         {{ $item->stock }}
                      </td>
+                     <td class="px-4 py-2">
+                        <a href="{{ route('alsintan.show', $item->id) }}"
+                           class="inline-block px-3 py-1 text-sm font-semibold text-white bg-green-600 rounded hover:bg-green-700">
+                           View
+                        </a>
+                     </td>
+                  </tr>
                   </tr>
                @endforeach
             </tbody>

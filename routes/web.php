@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
   Route::get('/data-alsintan', [DataAlsintanController::class, 'index'])->name('index_alsintan');
   Route::get('/create-alsintan', [DataAlsintanController::class, 'create'])->name('create_alsintan');
   Route::post('/alsintan/store', [DataAlsintanController::class, 'store'])->name('dataalsintan.store');
+  Route::get('/alsintan/show/{id}', [DataAlsintanController::class, 'show'])->name('alsintan.show');
 
   //dashboard 
   Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
