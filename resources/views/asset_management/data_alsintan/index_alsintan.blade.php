@@ -3,7 +3,7 @@
       <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
          <div class="w-full flex items-center justify-between mb-4">
             <h1 class="text-2xl font-bold text-green-700 dark:text-gray-200">
-               Data Alsintan
+               Data Alat mesin dan pertanian
             </h1>
             <a href="{{ route('create_alsintan') }}"
                class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300">

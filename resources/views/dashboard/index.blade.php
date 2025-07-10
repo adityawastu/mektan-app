@@ -1,6 +1,6 @@
 <x-layout>
    <div class="p-6">
-      <h1 class="text-2xl font-bold text-gray-800 mb-6">Dashboard</h1>
+      <h1 class="text-2xl font-bold text-green-600 mb-6">Dashboard Aplikasi</h1>
 
       {{-- Kartu ringkasan --}}
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -8,7 +8,12 @@
             <p class="text-sm text-gray-500 mb-1">Total Alat dan Mesin Pertanian</p>
             <p class="text-3xl font-bold text-gray-800">{{ $totalAlsintan }}</p>
          </div>
+         <div class="bg-white p-6 rounded-lg shadow border-l-4 border-green-600">
+            <p class="text-sm text-gray-500 mb-1">Mesin yang sedang berjalan</p>
+            <p class="text-3xl font-bold text-gray-800">{{ $totalAlsintan }}</p>
+         </div>
       </div>
+
 
       {{-- Grafik --}}
       <div class="bg-white p-6 rounded-lg shadow">
