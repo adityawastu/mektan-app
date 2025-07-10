@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PetaLokasiController;
+use App\Http\Controllers\DataAlsintanController;
 use App\Http\Controllers\MonitoringAlsintanController;
 
 //auth
@@ -25,4 +27,12 @@ Route::middleware(['auth'])->group(function () {
 
   //monitoring aktivitas
   Route::get('/monitoring-alsintan', [MonitoringAlsintanController::class, 'index'])->name('monitoring.aktivitas');
+
+  // data_alsintan
+  Route::get('/data-alsintan', [DataAlsintanController::class, 'index'])->name('index_alsintan');
+  Route::get('/create-alsintan', [DataAlsintanController::class, 'create'])->name('create_alsintan');
+  Route::post('/alsintan/store', [DataAlsintanController::class, 'store'])->name('dataalsintan.store');
+
+  //dashboard 
+  Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
