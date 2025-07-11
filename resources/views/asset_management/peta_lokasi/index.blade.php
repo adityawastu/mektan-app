@@ -44,29 +44,7 @@
 
                   </td>
                </tr>
-               <tr>
-                  <th scope="row" class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                     Mesin Gabah</th>
-                  <td class="px-4 py-2">
-                     <span
-                        class=" inline-flex items-center rounded-lg bg-blue-100 px-3 py-1.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300">
-                        <svg class="w-3 h-3 me-1 text-gray-800 dark:text-white" aria-hidden="true"
-                           xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                           viewBox="0 0 24 24">
-                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M12 8v4l3 3M3.22302 14C4.13247 18.008 7.71683 21 12 21c4.9706 0 9-4.0294 9-9 0-4.97056-4.0294-9-9-9-3.72916 0-6.92858 2.26806-8.29409 5.5M7 9H3V5" />
-                        </svg>
-                        On Going
-                     </span>
-                  </td>
-                  <td class="px-4 py-2">
-                     <a href="{{ route('peta.lokasi.alsintan') }}"
-                        class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                        Lihat Lokasi
-                     </a>
 
-                  </td>
-               </tr>
             </tbody>
          </table>
       </div>

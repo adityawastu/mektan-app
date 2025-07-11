@@ -14,9 +14,6 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-
-
-
 Route::middleware(['auth'])->group(function () {
   //beranda
   Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
@@ -36,4 +33,6 @@ Route::middleware(['auth'])->group(function () {
 
   //dashboard 
   Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+  //gps data 
 });

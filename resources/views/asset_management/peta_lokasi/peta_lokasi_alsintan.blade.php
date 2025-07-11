@@ -23,7 +23,7 @@
             <i class="fas fa-tachometer-alt"></i>
          </div>
          <p class="text-sm text-gray-600">Kecepatan Saat Ini</p>
-         <p class="text-xl font-bold text-gray-800">0.00 km/h</p>
+         <p class="text-xl font-bold text-gray-800"> {{ number_format($latest->speed ?? 0, 2) }}</p>
       </div>
 
       <!-- Kecepatan Rata-rata -->
@@ -50,7 +50,7 @@
             <i class="fas fa-battery-half"></i>
          </div>
          <p class="text-sm text-gray-600">Tegangan Bus</p>
-         <p class="text-xl font-bold text-gray-800">1.03 V</p>
+         <p class="text-xl font-bold text-gray-800"> {{ $latestData->bus_voltage ?? '0.00' }} V</p>
       </div>
 
       <!-- Kecepatan Maksimum -->
@@ -77,15 +77,19 @@
    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
    <script>
       document.addEventListener('DOMContentLoaded', function() {
-         var map = L.map('map').setView([-6.200000, 106.816666], 13);
+         var lat = {{ $latest->latitude ?? -6.2 }};
+         var lng = {{ $latest->longitude ?? 106.816666 }};
+         var speed = '{{ number_format($latest->speed ?? 0, 2) }}';
+
+         var map = L.map('map').setView([lat, lng], 13);
 
          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
          }).addTo(map);
 
-         L.marker([-6.200000, 106.816666])
+         L.marker([lat, lng])
             .addTo(map)
-            .bindPopup('Last known location')
+            .bindPopup('Lokasi terakhir<br>Speed: ' + speed + ' km/h')
             .openPopup();
       });
 
