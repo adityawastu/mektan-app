@@ -9,6 +9,10 @@ use App\Http\Controllers\DataAlsintanController;
 use App\Http\Controllers\MonitoringAlsintanController;
 
 //auth
+Route::get('/', function () {
+  return redirect()->route('login');
+});
+
 Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
