@@ -51,6 +51,7 @@ class DataAlsintanController extends Controller
   public function show($id)
   {
     $alsintan = DataAlsintan::with(['category', 'merk'])->findOrFail($id);
+    $alsintan = DataAlsintan::with('serviceHistories')->findOrFail($id);
     return view('asset_management.data_alsintan.show_alsintan', compact('alsintan'));
   }
 }

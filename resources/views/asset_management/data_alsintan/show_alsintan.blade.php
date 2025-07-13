@@ -61,29 +61,6 @@
 
    {{-- data servis --}}
    <div class="relative p-4 h-full shadow shadow-green-200 rounded-2xl mt-5 md:h-auto">
-      @php
-         // Data dummy
-         $serviceHistory = [
-             [
-                 'datetime' => '2025-06-03 20:05:00',
-                 'responsible' => 'Mamang recing',
-                 'mechanic' => 'Asep Kopling',
-                 'note' => 'Memperbaiki kopling traktor',
-             ],
-             [
-                 'datetime' => '2025-06-03 13:58:00',
-                 'responsible' => 'Aceng pilek',
-                 'mechanic' => 'Asep Teknik',
-                 'note' => 'Mengganti Aki yang sudah soak',
-             ],
-             [
-                 'datetime' => '2025-06-03 13:58:00',
-                 'responsible' => 'Mang Peuyeum',
-                 'mechanic' => 'Asep Teknik',
-                 'note' => 'Mengganti Aki yang sudah soak',
-             ],
-         ];
-      @endphp
       <div class="flex justify-between items-center mb-3">
          <h2 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
             Riwayat Servis Alat Tani
@@ -100,18 +77,20 @@
             </tr>
          </thead>
          <tbody>
-            @foreach ($serviceHistory as $item)
+            @forelse ($alsintan->serviceHistories as $item)
                <tr class="hover:bg-green-50">
-                  <td class="py-2 px-4 border">{{ $item['datetime'] }}</td>
-                  <td class="py-2 px-4 border">{{ $item['responsible'] }}</td>
-                  <td class="py-2 px-4 border">{{ $item['mechanic'] }}</td>
-                  <td class="py-2 px-4 border">{{ $item['note'] }}</td>
+                  <td class="py-2 px-4 border">{{ \Carbon\Carbon::parse($item->service_datetime)->format('Y-m-d H:i') }}
+                  </td>
+                  <td class="py-2 px-4 border">{{ $item->pic }}</td>
+                  <td class="py-2 px-4 border">{{ $item->mechanic }}</td>
+                  <td class="py-2 px-4 border">{{ $item->notes }}</td>
                   <td class="py-2 px-4 border text-center">
                      <div class="flex justify-center gap-2">
-                        <a href="#" class="px-3 py-1 text-sm text-white bg-green-600 rounded hover:bg-green-700">
+                        <a href="{{ route('service.edit', $item->id) }}"
+                           class="px-3 py-1 text-sm text-white bg-green-600 rounded hover:bg-green-700">
                            Edit
                         </a>
-                        <form action="#" method="POST"
+                        <form action="{{ route('service.destroy', $item->id) }}" method="POST"
                            onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                            @csrf
                            @method('DELETE')
@@ -123,17 +102,21 @@
                      </div>
                   </td>
                </tr>
-            @endforeach
+            @empty
+               <tr>
+                  <td colspan="5" class="text-center py-4 text-gray-500">Belum ada riwayat servis</td>
+               </tr>
+            @endforelse
          </tbody>
       </table>
+
       <div class="relative p-4 sm:p-5">
          <!-- Modal header -->
          <div class="grid grid-cols-1 lg:grid-cols-1 gap-4">
             <div class="col-span-4">
-               {{-- tombol --}}
                <div class="flex justify-between items-center">
                   <div class="flex items-center space-x-3 sm:space-x-4">
-                     <a href="#" type="button"
+                     <a href="{{ route('service.create', $alsintan->id) }}" type="button"
                         class="text-white inline-flex items-center bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                         <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                            xmlns="http://www.w3.org/2000/svg">
@@ -146,13 +129,12 @@
                         Tambah data service
                      </a>
                   </div>
-
-
                </div>
             </div>
          </div>
       </div>
    </div>
+
 
    {{-- data gps & grafik kecepatan --}}
    <div class="relative p-4 h-full shadow shadow-green-200 rounded-2xl mt-5 md:h-auto">
@@ -198,17 +180,17 @@
       </div>
 
       {{-- Grafik Kecepatan --}}
-      <div class="bg-white p-4 ">
-         <h2 class="text-lg font-semibold mb-4"><i class="fas fa-chart-line mr-2"></i> Grafik Kecepatan</h2>
-         <canvas id="speedChart" height="120"></canvas>
-      </div>
+      {{-- <div class="bg-white p-4 "> --}}
+      {{-- <h2 class="text-lg font-semibold mb-4"><i class="fas fa-chart-line mr-2"></i> Grafik Kecepatan</h2>
+      <canvas id="speedChart" height="120"></canvas>
+   </div> --}}
 
 
       {{-- Chart.js CDN --}}
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
 
       {{-- Script Chart --}}
-      <script>
+      {{-- <script>
          const ctx = document.getElementById('speedChart').getContext('2d');
          const speedChart = new Chart(ctx, {
             type: 'line',
@@ -261,61 +243,61 @@
             }
          });
       </script>
-   </div>
-   {{-- data sensor --}}
+   </div> --}}
+      {{-- data sensor --}}
 
-   <div class="relative p-4 h-full shadow shadow-green-200 rounded-2xl mt-5 md:h-auto space-y-6">
-      @php
-         $sensorData = [
-             ['time' => '2025-06-26 15:16:12', 'bus' => 1.03, 'shunt' => -0.02, 'load' => 1.03],
-             ['time' => '2025-06-26 15:15:00', 'bus' => 1.03, 'shunt' => 0.0, 'load' => 1.03],
-             ['time' => '2025-06-26 15:14:00', 'bus' => 1.03, 'shunt' => -0.01, 'load' => 1.03],
-             ['time' => '2025-06-26 15:12:00', 'bus' => 1.03, 'shunt' => -0.01, 'load' => 1.03],
-             ['time' => '2025-06-26 15:11:11', 'bus' => 1.03, 'shunt' => 0.0, 'load' => 1.03],
-         ];
+      <div class="relative p-4 h-full shadow shadow-green-200 rounded-2xl mt-5 md:h-auto space-y-6">
+         @php
+            $sensorData = [
+                ['time' => '2025-06-26 15:16:12', 'bus' => 1.03, 'shunt' => -0.02, 'load' => 1.03],
+                ['time' => '2025-06-26 15:15:00', 'bus' => 1.03, 'shunt' => 0.0, 'load' => 1.03],
+                ['time' => '2025-06-26 15:14:00', 'bus' => 1.03, 'shunt' => -0.01, 'load' => 1.03],
+                ['time' => '2025-06-26 15:12:00', 'bus' => 1.03, 'shunt' => -0.01, 'load' => 1.03],
+                ['time' => '2025-06-26 15:11:11', 'bus' => 1.03, 'shunt' => 0.0, 'load' => 1.03],
+            ];
 
-         $labels = collect($sensorData)->pluck('time');
-         $busVoltages = collect($sensorData)->pluck('bus');
-         $loadVoltages = collect($sensorData)->pluck('load');
-      @endphp
+            $labels = collect($sensorData)->pluck('time');
+            $busVoltages = collect($sensorData)->pluck('bus');
+            $loadVoltages = collect($sensorData)->pluck('load');
+         @endphp
 
-      {{-- TABEL SENSOR --}}
-      <div class="bg-white p-4 rounded-lg ">
-         <div class="flex justify-between items-center mb-4">
-            <h2 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
-               Data Sensor INA219 Terbaru
-            </h2>
-            <span class="text-sm text-gray-500">
-               Last Update: <strong>{{ $sensorData[0]['time'] }}</strong>
-            </span>
-         </div>
+         {{-- TABEL SENSOR --}}
+         <div class="bg-white p-4 rounded-lg ">
+            <div class="flex justify-between items-center mb-4">
+               <h2 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                  Data Sensor INA219 Terbaru
+               </h2>
+               <span class="text-sm text-gray-500">
+                  Last Update: <strong>{{ $sensorData[0]['time'] }}</strong>
+               </span>
+            </div>
 
-         <div class="overflow-x-auto">
-            <table class="w-full text-sm text-center border rounded-lg">
-               <thead class="bg-green-100 text-green-800 font-semibold">
-                  <tr>
-                     <th class="py-2 px-4 border">Waktu</th>
-                     <th class="py-2 px-4 border">Bus Voltage (V)</th>
-                     <th class="py-2 px-4 border">Shunt Voltage (V)</th>
-                     <th class="py-2 px-4 border">Load Voltage (V)</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  @foreach ($sensorData as $row)
-                     <tr class="bg-white hover:bg-green-50">
-                        <td class="py-2 px-4 border">{{ $row['time'] }}</td>
-                        <td class="py-2 px-4 border">{{ $row['bus'] }}</td>
-                        <td class="py-2 px-4 border">{{ $row['shunt'] }}</td>
-                        <td class="py-2 px-4 border">{{ $row['load'] }}</td>
+            <div class="overflow-x-auto">
+               <table class="w-full text-sm text-center border rounded-lg">
+                  <thead class="bg-green-100 text-green-800 font-semibold">
+                     <tr>
+                        <th class="py-2 px-4 border">Waktu</th>
+                        <th class="py-2 px-4 border">Bus Voltage (V)</th>
+                        <th class="py-2 px-4 border">Shunt Voltage (V)</th>
+                        <th class="py-2 px-4 border">Load Voltage (V)</th>
                      </tr>
-                  @endforeach
-               </tbody>
-            </table>
+                  </thead>
+                  <tbody>
+                     @foreach ($sensorData as $row)
+                        <tr class="bg-white hover:bg-green-50">
+                           <td class="py-2 px-4 border">{{ $row['time'] }}</td>
+                           <td class="py-2 px-4 border">{{ $row['bus'] }}</td>
+                           <td class="py-2 px-4 border">{{ $row['shunt'] }}</td>
+                           <td class="py-2 px-4 border">{{ $row['load'] }}</td>
+                        </tr>
+                     @endforeach
+                  </tbody>
+               </table>
+            </div>
          </div>
-      </div>
 
-      {{-- GRAFIK SENSOR --}}
-      <div class="bg-white p-6 rounded-lg ">
+         {{-- GRAFIK SENSOR --}}
+         {{-- <div class="bg-white p-6 rounded-lg ">
 
          <h2 class="text-lg font-semibold text-gray-800 flex items-center gap-2">Grafik Sensor INA219</h2>
          <div class="relative h-[300px] w-full">
@@ -362,9 +344,9 @@
                }
             });
          });
-      </script>
+      </script> --}}
 
-   </div>
+      </div>
 
 
 </x-layout>

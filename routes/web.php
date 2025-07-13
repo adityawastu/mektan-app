@@ -6,6 +6,7 @@ use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PetaLokasiController;
 use App\Http\Controllers\DataAlsintanController;
+use App\Http\Controllers\ServiceHistoryController;
 use App\Http\Controllers\MonitoringAlsintanController;
 
 //auth
@@ -39,4 +40,10 @@ Route::middleware(['auth'])->group(function () {
   Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
   //gps data 
+
+  //service history 
+  Route::get('/alsintan/{id}/service-history/create', [ServiceHistoryController::class, 'create'])->name('service.create');
+  Route::post('/service-history/store', [ServiceHistoryController::class, 'store'])->name('service.store');
+  Route::get('/service-history/{id}/edit', [ServiceHistoryController::class, 'edit'])->name('service.edit');
+  Route::delete('/service-history/{id}', [ServiceHistoryController::class, 'destroy'])->name('service.destroy');
 });

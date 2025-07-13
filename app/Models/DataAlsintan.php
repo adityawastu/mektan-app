@@ -26,4 +26,8 @@ class DataAlsintan extends Model
     {
         return $this->belongsTo(Merk::class);
     }
+    public function serviceHistories()
+    {
+        return $this->hasMany(ServiceHistory::class, 'data_alsintan_id');
+    }
 }

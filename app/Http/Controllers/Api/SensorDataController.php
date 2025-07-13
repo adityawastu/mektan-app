@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\SensorData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
 class SensorDataController extends Controller
@@ -12,13 +13,16 @@ class SensorDataController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'latitude'       => 'required|numeric',
-            'longitude'      => 'required|numeric',
+            'lat'       => 'required|numeric',
+            'lng'      => 'required|numeric',
             'speed'          => 'required|numeric',
-            'load_voltage'   => 'required|numeric',
-            'bus_voltage'    => 'required|numeric',
-            'shunt_voltage'  => 'required|numeric',
+            'loadvoltage'   => 'required|numeric',
+            'busvoltage'    => 'required|numeric',
+            'shuntvoltage'  => 'required|numeric',
         ]);
+
+        Log::info('Data diterima dari SIM800L:', $validated);
+        Log::info('Request masuk:', $request->all());
 
         // Simpan ke database
         SensorData::create($validated);

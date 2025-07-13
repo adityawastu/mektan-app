@@ -13,16 +13,15 @@ return new class extends Migration
     {
         Schema::create('sensor_data', function (Blueprint $table) {
             $table->id();
-            $table->decimal('latitude', 10, 6);
-            $table->decimal('longitude', 10, 6);
-            $table->decimal('speed', 6, 2);
-            $table->decimal('load_voltage', 6, 2);
-            $table->decimal('bus_voltage', 6, 2);
-            $table->decimal('shunt_voltage', 6, 2);
-            $table->timestamps();
+            $table->decimal('lat', 10, 6);
+            $table->decimal('lng', 10, 6);
+            $table->decimal('speed', 6, 2)->nullable();
+            $table->decimal('loadvoltage', 6, 2)->nullable();
+            $table->decimal('busvoltage', 6, 2)->nullable();
+            $table->decimal('shuntvoltage', 6, 2)->nullable();
+            $table->timestamps(); // created_at dan updated_at
         });
     }
-
     /**
      * Reverse the migrations.
      */

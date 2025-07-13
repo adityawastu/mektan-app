@@ -12,11 +12,11 @@ class SensorData extends Model
     protected $table = 'sensor_data'; // nama tabel di database
 
     protected $fillable = [
-        'latitude',
-        'longitude',
+        'lat',
+        'lng',
         'speed',
-        'load_voltage',
-        'bus_voltage',
-        'shunt_voltage',
+        'loadvoltage',
+        'busvoltage',
+        'shuntvoltage',
     ];
 }
