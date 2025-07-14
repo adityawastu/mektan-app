@@ -39,4 +39,23 @@ class SensorDataController extends Controller
             'message' => 'API /sensor method GET aktif'
         ]);
     }
+
+    public function checkStatus()
+    {
+        $latest = \App\Models\SensorData::latest()->first();
+
+        if (!$latest) {
+            return response()->json([
+                'status' => 'OFF',
+                'message' => 'Belum ada data sensor masuk.'
+            ]);
+        }
+
+        $isAlive = $latest->created_at->gt(now()->subMinutes(5));
+
+        return response()->json([
+            'status' => $isAlive ? 'ON' : 'OFF',
+            'last_data_time' => $latest->created_at->toDateTimeString()
+        ]);
+    }
 }

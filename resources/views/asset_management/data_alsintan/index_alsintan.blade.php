@@ -19,6 +19,7 @@
                   <th scope="col" class="px-4 py-2">Kategori</th>
                   <th scope="col" class="px-4 py-2">Merk</th>
                   <th scope="col" class="px-4 py-2">Stock</th>
+                  <th scope="col" class="px-4 py-2">Status</th>
                   <th scope="col" class="px-4 py-2">Aksi</th> <!-- Kolom baru untuk tombol -->
                </tr>
             </thead>
@@ -38,10 +39,34 @@
                         {{ $item->stock }}
                      </td>
                      <td class="px-4 py-2">
-                        <a href="{{ route('alsintan.show', $item->id) }}"
-                           class="inline-block px-3 py-1 text-sm font-semibold text-white bg-green-600 rounded hover:bg-green-700">
-                           View
-                        </a>
+                        @if ($status === 'ON')
+                           <div class="text-green-600 font-semibold">Mesin Aktif</div>
+                        @else
+                           <div class="text-red-600 font-semibold">Mesin Tidak Aktif</div>
+                        @endif
+
+                        @if ($lastTime)
+                           <div class="text-gray-500 text-xs mt-1">
+                              Terakhir data diterima: {{ \Carbon\Carbon::parse($lastTime)->diffForHumans() }}
+                           </div>
+                        @endif
+                     </td>
+                     <td class="px-4 py-2">
+                        <div class="flex gap-2">
+                           <a href="{{ route('alsintan.show', $item->id) }}"
+                              class="inline-block px-3 py-1 text-sm font-semibold text-white bg-green-600 rounded hover:bg-green-700">
+                              View
+                           </a>
+                           <form action="{{ route('alsintan.destroy', $item->id) }}" method="POST"
+                              onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                              @csrf
+                              @method('DELETE')
+                              <button type="submit"
+                                 class="px-3 py-1 text-sm font-semibold text-white bg-red-600 rounded hover:bg-red-700">
+                                 Delete
+                              </button>
+                           </form>
+                        </div>
                      </td>
                   </tr>
                   </tr>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Merk;
 use App\Models\Category;
+use App\Models\SensorData;
 use App\Models\DataAlsintan;
 use Illuminate\Http\Request;
 
@@ -11,8 +12,19 @@ class DataAlsintanController extends Controller
 {
   public function index()
   {
+
     $alsintans = DataAlsintan::with(['category', 'merk'])->paginate(10);
-    return view('asset_management.data_alsintan.index_alsintan', compact('alsintans'));
+
+    $latestSensorData = SensorData::latest()->first();
+
+    $status = 'OFF';
+    $lastTime = null;
+
+    if ($latestSensorData && $latestSensorData->created_at->gt(now()->subMinutes(5))) {
+      $status = 'ON';
+      $lastTime = $latestSensorData->created_at;
+    }
+    return view('asset_management.data_alsintan.index_alsintan', compact('alsintans', 'status', 'lastTime'));
   }
   public function create()
   {
@@ -53,5 +65,12 @@ class DataAlsintanController extends Controller
     $alsintan = DataAlsintan::with(['category', 'merk'])->findOrFail($id);
     $alsintan = DataAlsintan::with('serviceHistories')->findOrFail($id);
     return view('asset_management.data_alsintan.show_alsintan', compact('alsintan'));
+  }
+
+  public function destroy($id)
+  {
+    $alsintan = DataAlsintan::findOrFail($id);
+    $alsintan->delete();
+    return redirect()->route('index_alsintan')->with('success', 'Data berhasil dihapus.');
   }
 }
