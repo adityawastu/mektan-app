@@ -12,6 +12,7 @@ class SensorData extends Model
     protected $table = 'sensor_data'; // nama tabel di database
 
     protected $fillable = [
+        'sensor_id',
         'lat',
         'lng',
         'speed',
@@ -19,4 +20,9 @@ class SensorData extends Model
         'busvoltage',
         'shuntvoltage',
     ];
+
+    public function alsintan()
+    {
+        return $this->hasOne(DataAlsintan::class, 'sensor_id', 'sensor_id');
+    }
 }

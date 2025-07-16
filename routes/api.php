@@ -6,4 +6,4 @@ use App\Http\Controllers\Api\SensorDataController;
 
 Route::post('/sensor', [SensorDataController::class, 'store']);
 Route::get('/sensor', [SensorDataController::class, 'index']);
-Route::get('/sensor-status', [SensorDataController::class, 'checkStatus']);
+Route::get('/sensor/status/{sensor_id}', [SensorDataController::class, 'checkStatus']);

@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\SensorData;
 use App\Models\DataAlsintan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DataAlsintanController extends Controller
 {
@@ -30,7 +31,18 @@ class DataAlsintanController extends Controller
   {
     $categories = Category::all();
     $merks = Merk::all();
-    return view('asset_management.data_alsintan.create_alsintan', compact('categories', 'merks'));
+
+    // Ambil ID data terbaru untuk setiap sensor_id
+    $latestSensorIds = SensorData::select('sensor_id', DB::raw('MAX(id) as max_id'))
+      ->groupBy('sensor_id')
+      ->pluck('max_id');
+
+    // Ambil data sensor terbaru berdasarkan max_id
+    $sensors = SensorData::whereIn('id', $latestSensorIds)
+      ->orderBy('sensor_id', 'asc')
+      ->get();
+
+    return view('asset_management.data_alsintan.create_alsintan', compact('categories', 'merks', 'sensors'));
   }
 
   public function store(Request $request)
@@ -40,6 +52,7 @@ class DataAlsintanController extends Controller
       'category_id' => 'nullable|integer',
       'merk_id'     => 'nullable|integer',
       'stock'       => 'required|integer',
+      'sensor_id'   => 'required|integer',
       'description' => 'nullable',
       'image'       => 'nullable|image|mimes:jpg,jpeg,png',
     ]);
@@ -54,6 +67,7 @@ class DataAlsintanController extends Controller
       'category_id' => $validated['category_id'],
       'merk_id'     => $validated['merk_id'],
       'stock'       => $validated['stock'],
+      'sensor_id'   => $validated['sensor_id'],
       'description' => $validated['description'],
       'image'       => $imagePath,
     ]);

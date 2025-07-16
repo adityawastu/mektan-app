@@ -60,6 +60,19 @@
                      @endforeach
                   </select>
                </div>
+
+               {{-- sensor-id --}}
+               <div class="mb-2">
+                  <label for="sensor_id" class="block mb-2 text-sm font-medium text-gray-900">Sensor</label>
+                  <select id="sensor_id" name="sensor_id"
+                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                     <option selected="">Pilih Sensor</option>
+                     @foreach ($sensors as $sensor)
+                        <option value="{{ $sensor->sensor_id }}">Sensor Monitoring {{ $sensor->sensor_id }}</option>
+                     @endforeach
+
+                  </select>
+               </div>
                {{-- stock --}}
                <div class="mb-2">
                   <label for="stock" class="block mb-2 text-sm font-medium text-gray-900">Stock</label>

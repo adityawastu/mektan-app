@@ -46,7 +46,7 @@
                         @endif
 
                         @if ($lastTime)
-                           <div class="text-gray-500 text-xs mt-1">
+                           <div class="text-gray-500 text-sm mt-1">
                               Terakhir data diterima: {{ \Carbon\Carbon::parse($lastTime)->diffForHumans() }}
                            </div>
                         @endif

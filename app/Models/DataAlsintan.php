@@ -14,6 +14,7 @@ class DataAlsintan extends Model
         'category_id',
         'merk_id',
         'stock',
+        'sensor_id',
         'description',
         'image',
     ];
@@ -29,5 +30,9 @@ class DataAlsintan extends Model
     public function serviceHistories()
     {
         return $this->hasMany(ServiceHistory::class, 'data_alsintan_id');
+    }
+    public function sensor()
+    {
+        return $this->belongsTo(SensorData::class, 'sensor_id', 'sensor_id');
     }
 }
