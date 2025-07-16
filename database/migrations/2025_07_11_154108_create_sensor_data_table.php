@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sensor_data', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // auto increment
+            $table->string('sensor_id', 50);
             $table->decimal('lat', 10, 6);
             $table->decimal('lng', 10, 6);
             $table->decimal('speed', 6, 2)->nullable();

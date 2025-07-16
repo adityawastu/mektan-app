@@ -39,15 +39,15 @@
                         {{ $item->stock }}
                      </td>
                      <td class="px-4 py-2">
-                        @if ($status === 'ON')
+                        @if ($item->status === 'ON')
                            <div class="text-green-600 font-semibold">Mesin Aktif</div>
                         @else
                            <div class="text-red-600 font-semibold">Mesin Tidak Aktif</div>
                         @endif
 
-                        @if ($lastTime)
+                        @if ($item->lastTime)
                            <div class="text-gray-500 text-sm mt-1">
-                              Terakhir data diterima: {{ \Carbon\Carbon::parse($lastTime)->diffForHumans() }}
+                              Terakhir data diterima: {{ \Carbon\Carbon::parse($item->lastTime)->diffForHumans() }}
                            </div>
                         @endif
                      </td>

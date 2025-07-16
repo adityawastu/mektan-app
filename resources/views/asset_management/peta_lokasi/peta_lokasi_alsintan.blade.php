@@ -7,92 +7,62 @@
       </svg>
       Kembali
    </a>
+
    <div class="flex items-center justify-between mb-4">
-      <h1 class="text-black text-xl">Lokasi Real Time Traktor A</h1>
+      <h1 class="text-black text-xl">Lokasi Real Time {{ $alat->name ?? 'Mesin' }}</h1>
       <span id="realtime-clock" class="text-sm text-gray-600"></span>
    </div>
 
-   <!-- Container untuk peta -->
    <div id="map" class="w-full h-[400px] rounded shadow mb-6"></div>
 
-   <!-- Kartu Informasi -->
    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
-      <!-- Kecepatan Saat Ini -->
-      <div class="p-4 bg-white border-2 border-green-400 rounded-lg shadow-md text-center">
-         <div class="text-green-600 text-3xl mb-2">
-            <i class="fas fa-tachometer-alt"></i>
-         </div>
-         <p class="text-sm text-gray-600">Kecepatan Saat Ini</p>
-         <p class="text-xl font-bold text-gray-800"> {{ number_format($latest->speed ?? 0, 2) }}</p>
-      </div>
+      {{-- Kecepatan Saat Ini --}}
+      <x-monitoring.card icon="fas fa-tachometer-alt" label="Kecepatan Saat Ini"
+         value="{{ number_format($latestData->speed ?? 0, 2) . ' km/h' }}" />
 
-      <!-- Kecepatan Rata-rata -->
-      <div class="p-4 bg-white border-2 border-green-400 rounded-lg shadow-md text-center">
-         <div class="text-green-600 text-3xl mb-2">
-            <i class="fas fa-tachometer-alt"></i>
-         </div>
-         <p class="text-sm text-gray-600">Kecepatan Rata-rata</p>
-         <p class="text-xl font-bold text-gray-800">0.80 km/h</p>
-      </div>
+      {{-- Kecepatan Rata-rata --}}
+      <x-monitoring.card icon="fas fa-tachometer-alt" label="Kecepatan Rata-rata"
+         value="{{ number_format($averageSpeed ?? 0, 2) . ' km/h' }}" />
 
-      <!-- Total Jarak -->
-      <div class="p-4 bg-white border-2 border-green-400 rounded-lg shadow-md text-center">
-         <div class="text-green-600 text-3xl mb-2">
-            <i class="fas fa-road"></i>
-         </div>
-         <p class="text-sm text-gray-600">Total Jarak</p>
-         <p class="text-xl font-bold text-gray-800">87.17 km</p>
-      </div>
+      {{-- Total Jarak --}}
+      <x-monitoring.card icon="fas fa-road" label="Total Jarak"
+         value="{{ number_format($totalDistance ?? 0, 2) . ' km' }}" />
 
-      <!-- Tegangan Bus -->
-      <div class="p-4 bg-white border-2 border-green-400 rounded-lg shadow-md text-center">
-         <div class="text-green-600 text-3xl mb-2">
-            <i class="fas fa-battery-half"></i>
-         </div>
-         <p class="text-sm text-gray-600">Tegangan Bus</p>
-         <p class="text-xl font-bold text-gray-800"> {{ $latestData->bus_voltage ?? '0.00' }} V</p>
-      </div>
+      {{-- Tegangan Bus --}}
+      <x-monitoring.card icon="fas fa-battery-half" label="Tegangan Bus"
+         value="{{ number_format($latestData->busvoltage ?? 0, 2) . ' V' }}" />
 
-      <!-- Kecepatan Maksimum -->
-      <div class="p-4 bg-white border-2 border-green-400 rounded-lg shadow-md text-center">
-         <div class="text-green-600 text-3xl mb-2">
-            <i class="fas fa-chart-line"></i>
-         </div>
-         <p class="text-sm text-gray-600">Kecepatan Maksimum</p>
-         <p class="text-xl font-bold text-gray-800">3.00 km/h</p>
-      </div>
+      {{-- Kecepatan Maksimum --}}
+      <x-monitoring.card icon="fas fa-chart-line" label="Kecepatan Maksimum"
+         value="{{ number_format($maxSpeed ?? 0, 2) . ' km/h' }}" />
 
-      <!-- Durasi Penggunaan -->
-      <div class="p-4 bg-white border-2 border-green-400 rounded-lg shadow-md text-center">
-         <div class="text-green-600 text-3xl mb-2">
-            <i class="fas fa-clock"></i>
-         </div>
-         <p class="text-sm text-gray-600">Durasi Penggunaan</p>
-         <p class="text-xl font-bold text-gray-800">00:00:00</p>
-      </div>
+      {{-- Durasi Penggunaan --}}
+      <x-monitoring.card icon="fas fa-clock" label="Durasi Penggunaan" value="{{ $usageDuration ?? '00:00:00' }}" />
    </div>
 
-   <!-- Leaflet JS dan inisialisasi -->
    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
    <script>
       document.addEventListener('DOMContentLoaded', function() {
-         var lat = {{ $latest->latitude ?? -6.2 }};
-         var lng = {{ $latest->longitude ?? 106.816666 }};
-         var speed = '{{ number_format($latest->speed ?? 0, 2) }}';
+         // Ambil data lat dan lng dari database, fallback ke Bandung jika null
+         var lat = {{ $latestData->lat ?? -6.917464 }};
+         var lng = {{ $latestData->lng ?? 107.619123 }};
+         var speed = '{{ number_format($latestData->speed ?? 0, 2) }}';
 
-         var map = L.map('map').setView([lat, lng], 13);
+         // Inisialisasi peta
+         var map = L.map('map').setView([lat, lng], 15);
 
+         // Tambahkan tile layer
          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
          }).addTo(map);
 
+         // Tambahkan marker
          L.marker([lat, lng])
             .addTo(map)
             .bindPopup('Lokasi terakhir<br>Speed: ' + speed + ' km/h')
             .openPopup();
       });
-
 
       // Realtime Clock
       function updateClock() {
@@ -107,11 +77,9 @@
          document.getElementById('realtime-clock').textContent = `Waktu: ${timeString}`;
       }
 
-      setInterval(updateClock, 1000); // Update tiap detik
-      updateClock(); // Inisialisasi pertama
+      setInterval(updateClock, 1000);
+      updateClock();
    </script>
 
-   <!-- Font Awesome for Icons -->
    <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
-   <!-- Ganti "yourkitid" dengan ID dari akun Font Awesome kamu atau ganti dengan CDN jika pakai yang free -->
 </x-layout>

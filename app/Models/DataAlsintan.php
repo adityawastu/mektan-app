@@ -9,6 +9,8 @@ class DataAlsintan extends Model
 {
     use HasFactory;
 
+    protected $table = 'data_alsintans';
+
     protected $fillable = [
         'name',
         'category_id',
@@ -18,6 +20,7 @@ class DataAlsintan extends Model
         'description',
         'image',
     ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -27,10 +30,12 @@ class DataAlsintan extends Model
     {
         return $this->belongsTo(Merk::class);
     }
+
     public function serviceHistories()
     {
         return $this->hasMany(ServiceHistory::class, 'data_alsintan_id');
     }
+
     public function sensor()
     {
         return $this->belongsTo(SensorData::class, 'sensor_id', 'sensor_id');

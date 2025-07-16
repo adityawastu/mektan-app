@@ -10,7 +10,7 @@
          </div>
          <div class="bg-white p-6 rounded-lg shadow border-l-4 border-green-600">
             <p class="text-sm text-gray-500 mb-1">Mesin yang sedang berjalan</p>
-            <p class="text-3xl font-bold text-gray-800">{{ $totalAlsintan }}</p>
+            <p class="text-3xl font-bold text-gray-800">{{ $runningAlsintan }}</p>
          </div>
       </div>
 

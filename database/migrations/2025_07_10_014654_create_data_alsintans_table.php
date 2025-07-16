@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('data_alsintans', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('sensor_id', 50)->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('merk_id')->nullable(); // jika merk pakai relasi
             $table->integer('stock');

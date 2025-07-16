@@ -139,14 +139,6 @@
    {{-- data gps & grafik kecepatan --}}
    <div class="relative p-4 h-full shadow shadow-green-200 rounded-2xl mt-5 md:h-auto">
       @php
-         $gpsData = [
-             ['time' => '2025-06-26 15:16:12', 'latitude' => '-6.850738', 'longitude' => '107.276800', 'speed' => 0.0],
-             ['time' => '2025-06-26 15:15:00', 'latitude' => '-6.850665', 'longitude' => '107.276790', 'speed' => 3.0],
-             ['time' => '2025-06-26 15:14:00', 'latitude' => '-6.850500', 'longitude' => '107.276810', 'speed' => 0.0],
-             ['time' => '2025-06-26 15:12:00', 'latitude' => '-6.850573', 'longitude' => '107.276470', 'speed' => 1.0],
-             ['time' => '2025-06-26 15:11:11', 'latitude' => '-6.850580', 'longitude' => '107.276480', 'speed' => 0.0],
-         ];
-
          $chartLabels = collect($gpsData)->pluck('time');
          $chartData = collect($gpsData)->pluck('speed');
       @endphp
@@ -155,7 +147,7 @@
       <div class="bg-white p-4 mb-6">
          <div class="flex justify-between items-center mb-2">
             <h2 class="text-lg font-semibold"> Data GPS Terbaru</h2>
-            <p class="text-sm text-gray-600">Last Update: 26/6/2025, 15.16.12</p>
+            <p class="text-sm text-gray-600">Last Update: {{ $gpsData->first()['time'] ?? '-' }}</p>
          </div>
          <table class="w-full text-sm text-left text-gray-700 border rounded-lg">
             <thead class="bg-green-100 font-bold text-gray-800">
@@ -179,174 +171,55 @@
          </table>
       </div>
 
-      {{-- Grafik Kecepatan --}}
-      {{-- <div class="bg-white p-4 "> --}}
-      {{-- <h2 class="text-lg font-semibold mb-4"><i class="fas fa-chart-line mr-2"></i> Grafik Kecepatan</h2>
-      <canvas id="speedChart" height="120"></canvas>
-   </div> --}}
+   </div>
 
 
-      {{-- Chart.js CDN --}}
-      {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
 
-      {{-- Script Chart --}}
-      {{-- <script>
-         const ctx = document.getElementById('speedChart').getContext('2d');
-         const speedChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-               labels: {!! json_encode($chartLabels) !!},
-               datasets: [{
-                  label: 'Kecepatan (km/h)',
-                  data: {!! json_encode($chartData) !!},
-                  backgroundColor: 'rgba(34,197,94,0.2)',
-                  borderColor: 'rgba(34,197,94,1)',
-                  borderWidth: 2,
-                  fill: true,
-                  tension: 0.4,
-                  pointRadius: 4,
-                  pointBackgroundColor: 'rgba(34,197,94,1)',
-                  pointBorderColor: '#fff'
-               }]
-            },
-            options: {
-               responsive: true,
-               plugins: {
-                  legend: {
-                     display: true,
-                     position: 'top',
-                     labels: {
-                        color: '#111',
-                     }
-                  }
-               },
-               scales: {
-                  y: {
-                     beginAtZero: true,
-                     ticks: {
-                        stepSize: 1,
-                        color: '#4B5563'
-                     },
-                     grid: {
-                        color: '#E5E7EB'
-                     }
-                  },
-                  x: {
-                     ticks: {
-                        color: '#4B5563'
-                     },
-                     grid: {
-                        display: false
-                     }
-                  }
-               }
-            }
-         });
-      </script>
-   </div> --}}
-      {{-- data sensor --}}
+   {{-- data sensor --}}
 
-      <div class="relative p-4 h-full shadow shadow-green-200 rounded-2xl mt-5 md:h-auto space-y-6">
-         @php
-            $sensorData = [
-                ['time' => '2025-06-26 15:16:12', 'bus' => 1.03, 'shunt' => -0.02, 'load' => 1.03],
-                ['time' => '2025-06-26 15:15:00', 'bus' => 1.03, 'shunt' => 0.0, 'load' => 1.03],
-                ['time' => '2025-06-26 15:14:00', 'bus' => 1.03, 'shunt' => -0.01, 'load' => 1.03],
-                ['time' => '2025-06-26 15:12:00', 'bus' => 1.03, 'shunt' => -0.01, 'load' => 1.03],
-                ['time' => '2025-06-26 15:11:11', 'bus' => 1.03, 'shunt' => 0.0, 'load' => 1.03],
-            ];
+   <div class="relative p-4 h-full shadow shadow-green-200 rounded-2xl mt-5 md:h-auto space-y-6">
+      @php
+         $labels = collect($sensorData)->pluck('time');
+         $busVoltages = collect($sensorData)->pluck('bus');
+         $loadVoltages = collect($sensorData)->pluck('load');
+      @endphp
 
-            $labels = collect($sensorData)->pluck('time');
-            $busVoltages = collect($sensorData)->pluck('bus');
-            $loadVoltages = collect($sensorData)->pluck('load');
-         @endphp
+      {{-- Data Sensor --}}
+      <div class="bg-white p-4 rounded-lg ">
+         <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+               Data Sensor INA219 Terbaru
+            </h2>
+            <span class="text-sm text-gray-500">
+               Last Update: <strong>{{ $sensorData->first()['time'] ?? '-' }}</strong>
+            </span>
+         </div>
 
-         {{-- TABEL SENSOR --}}
-         <div class="bg-white p-4 rounded-lg ">
-            <div class="flex justify-between items-center mb-4">
-               <h2 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
-                  Data Sensor INA219 Terbaru
-               </h2>
-               <span class="text-sm text-gray-500">
-                  Last Update: <strong>{{ $sensorData[0]['time'] }}</strong>
-               </span>
-            </div>
-
-            <div class="overflow-x-auto">
-               <table class="w-full text-sm text-center border rounded-lg">
-                  <thead class="bg-green-100 text-green-800 font-semibold">
-                     <tr>
-                        <th class="py-2 px-4 border">Waktu</th>
-                        <th class="py-2 px-4 border">Bus Voltage (V)</th>
-                        <th class="py-2 px-4 border">Shunt Voltage (V)</th>
-                        <th class="py-2 px-4 border">Load Voltage (V)</th>
+         <div class="overflow-x-auto">
+            <table class="w-full text-sm text-center border rounded-lg">
+               <thead class="bg-green-100 text-green-800 font-semibold">
+                  <tr>
+                     <th class="py-2 px-4 border">Waktu</th>
+                     <th class="py-2 px-4 border">Bus Voltage (V)</th>
+                     <th class="py-2 px-4 border">Shunt Voltage (V)</th>
+                     <th class="py-2 px-4 border">Load Voltage (V)</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  @foreach ($sensorData as $row)
+                     <tr class="bg-white hover:bg-green-50">
+                        <td class="py-2 px-4 border">{{ $row['time'] }}</td>
+                        <td class="py-2 px-4 border">{{ $row['bus'] }}</td>
+                        <td class="py-2 px-4 border">{{ $row['shunt'] }}</td>
+                        <td class="py-2 px-4 border">{{ $row['load'] }}</td>
                      </tr>
-                  </thead>
-                  <tbody>
-                     @foreach ($sensorData as $row)
-                        <tr class="bg-white hover:bg-green-50">
-                           <td class="py-2 px-4 border">{{ $row['time'] }}</td>
-                           <td class="py-2 px-4 border">{{ $row['bus'] }}</td>
-                           <td class="py-2 px-4 border">{{ $row['shunt'] }}</td>
-                           <td class="py-2 px-4 border">{{ $row['load'] }}</td>
-                        </tr>
-                     @endforeach
-                  </tbody>
-               </table>
-            </div>
-         </div>
-
-         {{-- GRAFIK SENSOR --}}
-         {{-- <div class="bg-white p-6 rounded-lg ">
-
-         <h2 class="text-lg font-semibold text-gray-800 flex items-center gap-2">Grafik Sensor INA219</h2>
-         <div class="relative h-[300px] w-full">
-            <canvas id="sensorChart"></canvas>
+                  @endforeach
+               </tbody>
+            </table>
          </div>
       </div>
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <script>
-         document.addEventListener("DOMContentLoaded", function() {
-            const ctx = document.getElementById('sensorChart').getContext('2d');
-            new Chart(ctx, {
-               type: 'line',
-               data: {
-                  labels: {!! json_encode($labels) !!},
-                  datasets: [{
-                        label: 'Tegangan Bus (V)',
-                        data: {!! json_encode($busVoltages) !!},
-                        borderColor: 'blue',
-                        backgroundColor: 'rgba(0,0,255,0.1)',
-                        tension: 0.3,
-                        fill: true,
-                        pointRadius: 3
-                     },
-                     {
-                        label: 'Tegangan Beban (V)',
-                        data: {!! json_encode($loadVoltages) !!},
-                        borderColor: 'green',
-                        backgroundColor: 'rgba(0,255,0,0.1)',
-                        tension: 0.3,
-                        fill: true,
-                        pointRadius: 3
-                     }
-                  ]
-               },
-               options: {
-                  responsive: true,
-                  maintainAspectRatio: false,
-                  scales: {
-                     y: {
-                        beginAtZero: true,
-                        suggestedMax: 1.2
-                     }
-                  }
-               }
-            });
-         });
-      </script> --}}
 
-      </div>
+   </div>
 
 
 </x-layout>

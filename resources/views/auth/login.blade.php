@@ -41,7 +41,7 @@
                   <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                   <input type="email" name="email" id="email"
                      class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                     placeholder="name@email.com" required>
+                     placeholder="Email" required>
                </div>
                <div class="relative">
                   <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
