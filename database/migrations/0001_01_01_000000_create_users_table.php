@@ -17,6 +17,18 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            // Tambahan field untuk user PNS
+            $table->string('nip')->nullable();
+            $table->string('no_hp')->nullable();
+            $table->string('jabatan')->nullable();
+            $table->string('unit_kerja')->nullable();
+            $table->string('wilayah_kerja')->nullable();
+            $table->string('image')->nullable();
+
+            // Role user: admin atau super_admin
+            $table->string('role')->default('admin');
+
             $table->rememberToken();
             $table->timestamps();
         });

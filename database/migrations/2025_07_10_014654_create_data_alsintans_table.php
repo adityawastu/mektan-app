@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('sensor_id', 50)->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->unsignedBigInteger('merk_id')->nullable(); // jika merk pakai relasi
+            $table->unsignedBigInteger('merk_id')->nullable();
             $table->integer('stock');
             $table->text('description')->nullable();
             $table->string('image')->nullable();

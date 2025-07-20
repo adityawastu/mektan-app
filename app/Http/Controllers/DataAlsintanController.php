@@ -8,6 +8,7 @@ use App\Models\SensorData;
 use App\Models\DataAlsintan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DataAlsintanController extends Controller
 {
@@ -62,7 +63,7 @@ class DataAlsintanController extends Controller
 
     $imagePath = null;
     if ($request->hasFile('image')) {
-      $imagePath = $request->file('image')->store('alsintan-images', 'public');
+      $imagePath = $request->file('image')->store('alsintan_images', 'public');
     }
 
     DataAlsintan::create([
@@ -92,8 +93,8 @@ class DataAlsintanController extends Controller
     $gpsData = $dataSensor->map(function ($item) {
       return [
         'time' => $item->created_at->format('Y-m-d H:i:s'),
-        'latitude' => $item->latitude,
-        'longitude' => $item->longitude,
+        'latitude' => $item->lat,
+        'longitude' => $item->lng,
         'speed' => $item->speed,
       ];
     });
@@ -130,5 +131,60 @@ class DataAlsintanController extends Controller
     $alsintan->delete();
 
     return redirect()->route('index_alsintan')->with('success', 'Data berhasil dihapus.');
+  }
+
+  public function edit($id)
+  {
+    $alsintan = DataAlsintan::findOrFail($id);
+    $categories = Category::all();
+    $merks = Merk::all();
+    // $sensors = SensorData::select('*')
+    //   ->whereIn('id', function ($query) {
+    //     $query->selectRaw('MAX(id)')
+    //       ->from('sensor_data')
+    //       ->groupBy('sensor_id');
+    //   })->get();
+
+    $sensors = SensorData::select('sensor_id')->distinct()->get();
+
+
+    return view('asset_management.data_alsintan.edit_alsintan', compact('alsintan', 'categories', 'merks', 'sensors'));
+  }
+
+  public function update(Request $request, $id)
+  {
+    $request->validate([
+      'name' => 'required|string|max:255',
+      'sensor_id' => 'required|string|exists:sensor_data,sensor_id',
+      'category_id' => 'nullable|exists:categories,id',
+      'merk_id' => 'nullable|exists:merks,id',
+      'stock' => 'required|integer|min:0',
+      'description' => 'nullable|string',
+      'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
+
+    $alsintan = DataAlsintan::findOrFail($id);
+
+    $alsintan->name = $request->name;
+    $alsintan->sensor_id = $request->sensor_id;
+    $alsintan->category_id = $request->category_id;
+    $alsintan->merk_id = $request->merk_id;
+    $alsintan->stock = $request->stock;
+    $alsintan->description = $request->description;
+
+    // Jika ada upload gambar baru
+    if ($request->hasFile('image')) {
+      // Hapus gambar lama jika ada
+      if ($alsintan->image) {
+        Storage::delete('public/' . $alsintan->image);
+      }
+
+      // Simpan gambar baru
+      $path = $request->file('image')->store('alsintan_images', 'public');
+      $alsintan->image = $path;
+    }
+    $alsintan->save();
+
+    return redirect()->route('alsintan.show', $alsintan->id)->with('success', 'Data alsintan berhasil diperbarui.');
   }
 }

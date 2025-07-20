@@ -1,4 +1,5 @@
-  <aside
+  <aside @php
+$user = Auth::user(); @endphp
      class="fixed top-0 left-0 z-40 w-64 h-[94vh] mt-15 pt-0 transition-transform -translate-x-full md:translate-x-0 shadow-lg rounded-xl"
      aria-label="Sidenav" id="drawer-navigation">
      <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800 rounded-2xl">
@@ -10,8 +11,9 @@
                     id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
                     <span class="sr-only">Open user menu</span>
                     <img class="w-12 h-12 rounded-full"
-                       src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
-                       alt="user photo" />
+                       src="{{ asset($user->image ? 'storage/' . $user->image : 'images/default-user.png') }}"
+                       alt="user photo">
+
                  </button>
                  <div class="py-3 px-4">
                     <span class="block text-sm font-semibold text-gray-900 dark:text-white">
@@ -28,16 +30,12 @@
                     id="dropdown">
 
                     <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
-                       <li>
+                       {{-- <li>
                           <a href="#"
                              class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">My
                              profile</a>
-                       </li>
-                       <li>
-                          <a href="#"
-                             class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Account
-                             settings</a>
-                       </li>
+                       </li> --}}
+
                     </ul>
 
                     <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
@@ -117,19 +115,23 @@
                  </li>
               </ul>
            </li>
-           <li>
-              <a href="#"
-                 class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+           @if ($user->role !== 'admin')
+              <li>
+                 <a href="{{ route('user.index') }}"
+                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
 
-                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                       d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
-                 </svg>
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                       xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                       viewBox="0 0 24 24">
+                       <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                          d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                    </svg>
 
-                 <span class="ml-2">User Management</span>
-              </a>
-           </li>
+                    <span class="ml-2">User Management</span>
+                 </a>
+              </li>
+           @endif
+
         </ul>
      </div>
 

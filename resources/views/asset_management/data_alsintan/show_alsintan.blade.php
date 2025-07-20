@@ -1,5 +1,5 @@
 <x-layout>
-   <a href="{{ url()->previous() }}"
+   <a href="{{ route('index_alsintan') }}"
       class="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-white bg-green-700 rounded hover:bg-green-800">
       <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
          xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +17,7 @@
                <div class="flex-shrink-0">
                   <img src="{{ asset('storage/' . $alsintan->image) }}" alt="Gambar Alsintan"
                      class="w-64 h-64 object-cover rounded-lg"
-                     onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';">
+                     onerror="this.onerror=null;this.src='{{ asset('images/default-alat.png') }}';">
                </div>
 
                <!-- Keterangan di kanan -->
@@ -36,11 +36,14 @@
                      <dd class="mb-4 font-light text-gray-500 sm:mb-5">{{ $alsintan->merk->name ?? '-' }}</dd>
                      <dt class="mb-2 font-semibold leading-none text-gray-900">Stok Alat</dt>
                      <dd class="mb-4 font-light text-gray-500 sm:mb-5">{{ $alsintan->stock }}</dd>
+                     <dt class="mb-2 font-semibold leading-none text-gray-900">Sensor</dt>
+                     <dd class="mb-4 font-light text-gray-500 sm:mb-5">{{ $alsintan->sensor_id }}</dd>
+
                   </dl>
 
                   <!-- Tombol Edit -->
                   <div class="flex items-center space-x-4 mt-4">
-                     <a href="#" type="button"
+                     <a href="{{ route('alsintan.edit', $alsintan->id) }}" type="button"
                         class="text-white inline-flex items-center bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                         <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                            xmlns="http://www.w3.org/2000/svg">
@@ -67,7 +70,7 @@
          </h2>
       </div>
       <table class="w-full text-sm text-left border-collapse">
-         <thead class="bg-green-100 text-green-800 font-semibold">
+         <thead class="bg-green-100 text-black font-semibold">
             <tr>
                <th class="py-2 px-4 border">Tanggal & Jam</th>
                <th class="py-2 px-4 border">Penanggung Jawab</th>
@@ -79,7 +82,8 @@
          <tbody>
             @forelse ($alsintan->serviceHistories as $item)
                <tr class="hover:bg-green-50">
-                  <td class="py-2 px-4 border">{{ \Carbon\Carbon::parse($item->service_datetime)->format('Y-m-d H:i') }}
+                  <td class="py-2 px-4 border">
+                     {{ \Carbon\Carbon::parse($item->service_datetime)->format('Y-m-d H:i') }}
                   </td>
                   <td class="py-2 px-4 border">{{ $item->pic }}</td>
                   <td class="py-2 px-4 border">{{ $item->mechanic }}</td>

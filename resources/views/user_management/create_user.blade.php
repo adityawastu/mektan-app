@@ -1,5 +1,5 @@
 <x-layout>
-   <a href="{{ route('index_alsintan') }}"
+   <a href="{{ url()->previous() }}"
       class="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-white bg-green-700 rounded hover:bg-green-800">
       <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
          xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +13,7 @@
          <!-- Modal header -->
          <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
             <h3 class="text-lg font-semibold text-gray-900">
-               Tambah Data Alsintan
+               Tambah Data User
             </h3>
             {{-- <a href="/import"
                class="flex items-center justify-center  bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg text-sm px-4 py-2 focus:outline-none">
@@ -26,68 +26,93 @@
                Import Data Alsintan
             </a> --}}
          </div>
-         <form action="{{ route('dataalsintan.store') }}" method="POST" enctype="multipart/form-data">
+         <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="gap-6 mb-4
                 sm:grid-cols-2">
                {{-- nama --}}
                <div class="mb-2">
-                  <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nama Alat</label>
+                  <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nama</label>
                   <input type="text" name="name" id="name"
                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                     placeholder="Masukkan nama alat" required="">
-               </div>
-               {{-- sensor --}}
-               <div class="mb-2">
-                  <label for="sensor_id" class="block mb-2 text-sm font-medium text-gray-900">Sensor</label>
-                  <select id="sensor_id" name="sensor_id"
-                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-                     <option selected disabled>Pilih Sensor</option>
-                     @foreach ($sensors as $sensor)
-                        <option value="{{ $sensor->sensor_id }}"
-                           {{ old('sensor_id') == $sensor->sensor_id ? 'selected' : '' }}>{{ $sensor->sensor_id }}
-                        </option>
-                     @endforeach
-                  </select>
-               </div>
-               {{-- jenis --}}
-               <div class="mb-2">
-                  <label for="category" class="block mb-2 text-sm font-medium text-gray-900">Kategori Alsintan</label>
-                  <select id="category" name="category_id"
-                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-                     <option selected="">Pilih jenis Kategori</option>
-                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                     @endforeach
-                  </select>
-
-               </div>
-               {{-- merk --}}
-               <div class="mb-2">
-                  <label for="merk" class="block mb-2 text-sm font-medium text-gray-900">Merk</label>
-                  <select id="merk" name="merk_id"
-                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-                     <option selected="">Pilih Merk alat</option>
-                     @foreach ($merks as $merk)
-                        <option value="{{ $merk->id }}">{{ $merk->name }}</option>
-                     @endforeach
-                  </select>
+                     placeholder="Masukkan nama lengkap" required="">
                </div>
 
-               {{-- stock --}}
+               {{-- email --}}
                <div class="mb-2">
-                  <label for="stock" class="block mb-2 text-sm font-medium text-gray-900">Stock</label>
-                  <input type="number" name="stock" id="stock"
+                  <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+                  <input type="text" name="email" id="email"
                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                     placeholder="Masukkan jumlah alat" required="">
+                     placeholder="Masukkan Email" required="">
                </div>
 
-               {{-- deskripsi --}}
+               {{-- email --}}
                <div class="mb-2">
-                  <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
-                  <textarea id="description" name="description" rows="4"
-                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
-                     placeholder="Tulis produk deskripsi disini"></textarea>
+                  <label for="password" class="block mb-2 text-sm font-medium text-gray-900">password</label>
+                  <input type="password" name="password" id="password"
+                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                     placeholder="Masukkan Password" required="">
+               </div>
+
+               <div class="mb-2">
+                  <label for="password_confirmation" class="block mb-2 text-sm font-medium text-gray-900">Konfirmasi
+                     Password</label>
+                  <input type="password" name="password_confirmation" id="password_confirmation"
+                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                     placeholder="Masukkan Kembali Password" required="">
+               </div>
+
+               {{-- Role --}}
+               <div class="mb-2">
+                  <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
+                  <select id="role" name="role"
+                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                     required>
+                     <option selected disabled>Pilih Role</option>
+                     <option value="admin">Admin</option>
+                     <option value="super_admin">Super Admin</option>
+                  </select>
+               </div>
+
+               {{-- NIP --}}
+               <div class="mb-2">
+                  <label for="nip" class="block mb-2 text-sm font-medium text-gray-900">NIP</label>
+                  <input type="text" name="nip" id="nip"
+                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                     placeholder="Masukkan NIP">
+               </div>
+
+               {{-- No HP --}}
+               <div class="mb-2">
+                  <label for="no_hp" class="block mb-2 text-sm font-medium text-gray-900">No HP</label>
+                  <input type="text" name="no_hp" id="no_hp"
+                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                     placeholder="Masukkan No HP">
+               </div>
+
+               {{-- Jabatan --}}
+               <div class="mb-2">
+                  <label for="jabatan" class="block mb-2 text-sm font-medium text-gray-900">Jabatan</label>
+                  <input type="text" name="jabatan" id="jabatan"
+                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                     placeholder="Masukkan jabatan">
+               </div>
+
+               {{-- Unit Kerja --}}
+               <div class="mb-2">
+                  <label for="unit_kerja" class="block mb-2 text-sm font-medium text-gray-900">Unit Kerja</label>
+                  <input type="text" name="unit_kerja" id="unit_kerja"
+                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                     placeholder="Masukkan unit kerja">
+               </div>
+
+               {{-- Wilayah Kerja --}}
+               <div class="mb-2">
+                  <label for="wilayah_kerja" class="block mb-2 text-sm font-medium text-gray-900">Wilayah
+                     Kerja</label>
+                  <input type="text" name="wilayah_kerja" id="wilayah_kerja"
+                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                     placeholder="Masukkan wilayah kerja">
                </div>
                {{-- upload gambar --}}
                <div class="mb-2">
@@ -98,8 +123,8 @@
                         onchange="handleFiles(this.files)">
 
                      <div class="flex flex-col items-center justify-center">
-                        <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" stroke-width="2"
-                           viewBox="0 0 24 24">
+                        <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor"
+                           stroke-width="2" viewBox="0 0 24 24">
                            <path stroke-linecap="round" stroke-linejoin="round"
                               d="M12 16v-4m0 0V8m0 4h4m-4 0H8m4-4a4 4 0 110 8 4 4 0 010-8z" />
                         </svg>
@@ -148,7 +173,7 @@
                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                clip-rule="evenodd"></path>
          </svg>
-         Tambahkan produk
+         Tambahkan user
       </button>
       </form>
    </div>

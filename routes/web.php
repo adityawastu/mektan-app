@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\DashboardController;
@@ -23,6 +24,9 @@ Route::middleware(['auth'])->group(function () {
   //beranda
   Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
 
+  //dashboard 
+  Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
   //peta-lokasi
   Route::get('/index-peta-lokasi', [PetaLokasiController::class, 'index'])->name('index.peta.lokasi');
   Route::get('/peta-lokasi-alsintan', [PetaLokasiController::class, 'lokasiAlsintan'])->name('peta.lokasi.alsintan');
@@ -37,9 +41,10 @@ Route::middleware(['auth'])->group(function () {
   Route::post('/alsintan/store', [DataAlsintanController::class, 'store'])->name('dataalsintan.store');
   Route::get('/alsintan/show/{id}', [DataAlsintanController::class, 'show'])->name('alsintan.show');
   Route::delete('/alsintan/{id}', [DataAlsintanController::class, 'destroy'])->name('alsintan.destroy');
+  Route::get('/alsintan/{id}/edit', [DataAlsintanController::class, 'edit'])->name('alsintan.edit');
+  Route::put('/alsintan/{id}', [DataAlsintanController::class, 'update'])->name('alsintan.update');
 
-  //dashboard 
-  Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 
   //gps data 
 
@@ -48,4 +53,11 @@ Route::middleware(['auth'])->group(function () {
   Route::post('/service-history/store', [ServiceHistoryController::class, 'store'])->name('service.store');
   Route::get('/service-history/{id}/edit', [ServiceHistoryController::class, 'edit'])->name('service.edit');
   Route::delete('/service-history/{id}', [ServiceHistoryController::class, 'destroy'])->name('service.destroy');
+
+  //user
+  Route::get('/profile-user', [UserController::class, 'show'])->name('user.show');
+  Route::get('/index-user', [UserController::class, 'index'])->name('user.index');
+  Route::get('/create-user', [UserController::class, 'create'])->name('user.create');
+  Route::post('/user', [UserController::class, 'store'])->name('user.store');
+  Route::delete('/destroy-user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 });

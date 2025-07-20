@@ -1,5 +1,5 @@
 <x-layout>
-   <a href="{{ route('index_alsintan') }}"
+   <a href="{{ url()->previous() }}"
       class="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-white bg-green-700 rounded hover:bg-green-800">
       <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
          xmlns="http://www.w3.org/2000/svg">
@@ -8,68 +8,66 @@
       Kembali
    </a>
    <div class="h-full sm:h-auto">
-      <!-- Modal content -->
       <div class="relative p-4 mb-3 rounded-lg shadow sm:p-5">
-         <!-- Modal header -->
          <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
             <h3 class="text-lg font-semibold text-gray-900">
-               Tambah Data Alsintan
+               Edit Data Alsintan
             </h3>
-            {{-- <a href="/import"
-               class="flex items-center justify-center  bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg text-sm px-4 py-2 focus:outline-none">
-
-               <svg class="h-4 w-4 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                  height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                     d="M5 12V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-4m5-13v4a1 1 0 0 1-1 1H5m0 6h9m0 0-2-2m2 2-2 2" />
-               </svg>
-               Import Data Alsintan
-            </a> --}}
          </div>
-         <form action="{{ route('dataalsintan.store') }}" method="POST" enctype="multipart/form-data">
+
+         <form action="{{ route('alsintan.update', $alsintan->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="gap-6 mb-4
-                sm:grid-cols-2">
+            @method('PUT')
+            <div class="gap-6 mb-4 sm:grid-cols-2">
                {{-- nama --}}
                <div class="mb-2">
                   <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nama Alat</label>
-                  <input type="text" name="name" id="name"
+                  <input type="text" name="name" id="name" value="{{ old('name', $alsintan->name) }}"
                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                     placeholder="Masukkan nama alat" required="">
+                     placeholder="Masukkan nama alat" required>
                </div>
+
                {{-- sensor --}}
                <div class="mb-2">
                   <label for="sensor_id" class="block mb-2 text-sm font-medium text-gray-900">Sensor</label>
                   <select id="sensor_id" name="sensor_id"
                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-                     <option selected disabled>Pilih Sensor</option>
+                     <option disabled>Pilih Sensor</option>
                      @foreach ($sensors as $sensor)
                         <option value="{{ $sensor->sensor_id }}"
-                           {{ old('sensor_id') == $sensor->sensor_id ? 'selected' : '' }}>{{ $sensor->sensor_id }}
+                           {{ old('sensor_id', $alsintan->sensor_id) == $sensor->sensor_id ? 'selected' : '' }}>
+                           {{ $sensor->sensor_id }}
                         </option>
                      @endforeach
                   </select>
                </div>
+
                {{-- jenis --}}
                <div class="mb-2">
                   <label for="category" class="block mb-2 text-sm font-medium text-gray-900">Kategori Alsintan</label>
                   <select id="category" name="category_id"
                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-                     <option selected="">Pilih jenis Kategori</option>
+                     <option>Pilih jenis Kategori</option>
                      @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        <option value="{{ $category->id }}"
+                           {{ old('category_id', $alsintan->category_id) == $category->id ? 'selected' : '' }}>
+                           {{ $category->name }}
+                        </option>
                      @endforeach
                   </select>
-
                </div>
+
                {{-- merk --}}
                <div class="mb-2">
                   <label for="merk" class="block mb-2 text-sm font-medium text-gray-900">Merk</label>
                   <select id="merk" name="merk_id"
                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-                     <option selected="">Pilih Merk alat</option>
+                     <option>Pilih Merk alat</option>
                      @foreach ($merks as $merk)
-                        <option value="{{ $merk->id }}">{{ $merk->name }}</option>
+                        <option value="{{ $merk->id }}"
+                           {{ old('merk_id', $alsintan->merk_id) == $merk->id ? 'selected' : '' }}>
+                           {{ $merk->name }}
+                        </option>
                      @endforeach
                   </select>
                </div>
@@ -77,9 +75,9 @@
                {{-- stock --}}
                <div class="mb-2">
                   <label for="stock" class="block mb-2 text-sm font-medium text-gray-900">Stock</label>
-                  <input type="number" name="stock" id="stock"
+                  <input type="number" name="stock" id="stock" value="{{ old('stock', $alsintan->stock) }}"
                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                     placeholder="Masukkan jumlah alat" required="">
+                     placeholder="Masukkan jumlah alat" required>
                </div>
 
                {{-- deskripsi --}}
@@ -87,11 +85,20 @@
                   <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
                   <textarea id="description" name="description" rows="4"
                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
-                     placeholder="Tulis produk deskripsi disini"></textarea>
+                     placeholder="Tulis produk deskripsi disini">{{ old('description', $alsintan->description) }}</textarea>
                </div>
-               {{-- upload gambar --}}
+
+               {{-- preview gambar lama --}}
+               @if ($alsintan->image)
+                  <div class="mb-4">
+                     <label class="block text-sm font-medium text-gray-700">Gambar Saat Ini:</label>
+                     <img src="{{ asset('storage/' . $alsintan->image) }}" class="w-40 h-40 object-cover rounded-lg">
+                  </div>
+               @endif
+
+               {{-- upload gambar baru --}}
                <div class="mb-2">
-                  <label class="block text-sm font-medium text-gray-700">Upload Gambar</label>
+                  <label class="block text-sm font-medium text-gray-700">Upload Gambar Baru</label>
                   <div id="drop-area"
                      class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer mt-2 hover:border-gray-400 transition mb-2">
                      <input type="file" name="image" id="image" accept="image/*" class="hidden"
@@ -104,18 +111,16 @@
                               d="M12 16v-4m0 0V8m0 4h4m-4 0H8m4-4a4 4 0 110 8 4 4 0 010-8z" />
                         </svg>
                         <p class="text-gray-600"><b>Click to upload</b> or drag and drop</p>
-                        <p class="text-xs text-gray-400">SVG, PNG, JPG, or GIF (MAX. 800x400px) only 1 x 1</p>
+                        <p class="text-xs text-gray-400">SVG, PNG, JPG, or GIF (MAX. 800x400px)</p>
                      </div>
-
-                     <!-- Preview Gambar -->
-
                   </div>
+
+                  {{-- preview upload baru --}}
                   <div class="mb-2">
                      <p id="fileLabel" class="text-sm font-medium text-gray-700 mb-1 hidden">Files</p>
                      <div id="borderLabel" class="border-2 border-dashed border-gray-300 rounded-lg p-4 hidden">
                         <div id="previewContainer"
-                           class="relative grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center ">
-                           <!-- Preview Gambar -->
+                           class="relative grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center">
                            <div class="col-span-1">
                               <img id="preview" class="w-40 h-40 object-cover rounded-lg">
                               <button id="removeImage" type="button"
@@ -128,40 +133,38 @@
                                  </svg>
                               </button>
                            </div>
-                           <!-- Informasi File -->
                            <div class="text-sm text-gray-700 col-span-5">
                               <p><strong>File:</strong> <span id="fileName">-</span></p>
                               <p><strong>Ukuran:</strong> <span id="fileSize">-</span></p>
                               <p><strong>Tipe:</strong> <span id="fileType">-</span></p>
                            </div>
-
                         </div>
                      </div>
                   </div>
                </div>
             </div>
+
+            <button type="submit"
+               class="text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+               <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                     d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm8 2a1 1 0 10-2 0v3H6a1 1 0 100 2h3v3a1 1 0 102 0v-3h3a1 1 0 100-2h-3V6z"
+                     clip-rule="evenodd"></path>
+               </svg>
+               Update Data Alsintan
+            </button>
+         </form>
       </div>
-      <button type="submit"
-         class="text-white inline-flex items-center  bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-         <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-               d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-               clip-rule="evenodd"></path>
-         </svg>
-         Tambahkan produk
-      </button>
-      </form>
    </div>
-   </div>
+
    <script>
       const dropArea = document.getElementById("drop-area");
       const fileInput = document.getElementById("image");
       const preview = document.getElementById("preview");
 
-      // Saat klik area, buka file picker
       dropArea.addEventListener("click", () => fileInput.click());
 
-      // Drag & Drop
       dropArea.addEventListener("dragover", (e) => {
          e.preventDefault();
          dropArea.classList.add("border-gray-400");
@@ -183,12 +186,10 @@
 
             let reader = new FileReader();
             reader.onload = function() {
-               // Menampilkan gambar preview
-               document.getElementById("preview").src = reader.result;
+               preview.src = reader.result;
                document.getElementById("borderLabel").classList.remove("hidden");
                document.getElementById("fileLabel").classList.remove("hidden");
 
-               // Menampilkan informasi file
                document.getElementById("fileName").textContent = file.name;
                document.getElementById("fileSize").textContent = (file.size / 1024).toFixed(2) + " KB";
                document.getElementById("fileType").textContent = file.type;
@@ -197,14 +198,11 @@
          }
       }
 
-      // Fungsi untuk menghapus gambar dan informasi file
       document.getElementById("removeImage").addEventListener("click", function() {
-         document.getElementById("preview").src = "";
+         preview.src = "";
          document.getElementById("borderLabel").classList.add("hidden");
          document.getElementById("fileLabel").classList.add("hidden");
-         document.getElementById("image").value = ""; // Reset input file
-
-         // Reset informasi file
+         fileInput.value = "";
          document.getElementById("fileName").textContent = "-";
          document.getElementById("fileSize").textContent = "-";
          document.getElementById("fileType").textContent = "-";
