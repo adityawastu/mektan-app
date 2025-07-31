@@ -5,13 +5,26 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   @php
+      $isProduction = app()->environment('production');
+      $manifestPath = $isProduction ? '../public_html/build/manifest.json' : public_path('build/manifest.json');
+   @endphp
 
-   @vite(['resources/css/app.css', 'resources/js/app.js'])
-   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+   @if ($isProduction && file_exists($manifestPath))
+      @php
+         $manifest = json_decode(file_get_contents($manifestPath), true);
+      @endphp
+      <link rel="stylesheet" href="{{ config('app.url') }}/build/{{ $manifest['resources/css/app.css']['file'] }}">
+      <script type="module" src="{{ config('app.url') }}/build/{{ $manifest['resources/js/app.js']['file'] }}"></script>
+   @else
+      @viteReactRefresh
+      @vite(['resources/js/app.js', 'resources/css/app.css'])
+   @endif
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-   {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
-
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
    <title>GreenTek</title>
+   <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-900">

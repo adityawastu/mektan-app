@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
 
   //peta-lokasi
   Route::get('/index-peta-lokasi', [PetaLokasiController::class, 'index'])->name('index.peta.lokasi');
-  Route::get('/peta-lokasi-alsintan', [PetaLokasiController::class, 'lokasiAlsintan'])->name('peta.lokasi.alsintan');
+  // Route::get('/peta-lokasi-alsintan', [PetaLokasiController::class, 'lokasiAlsintan'])->name('peta.lokasi.alsintan');
   Route::get('/monitoring/{sensor_id}', [PetaLokasiController::class, 'show'])->name('peta.lokasi.alsintan');
 
   //monitoring aktivitas
