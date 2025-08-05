@@ -29,7 +29,7 @@ class DataAlsintanController extends Controller
       return $item;
     });
 
-    return view('asset_management.data_alsintan.index_alsintan', [
+    return view('admin.asset_management.data_alsintan.index_alsintan', [
       'alsintans' => $alsintansPaginated
     ]);
   }
@@ -46,7 +46,7 @@ class DataAlsintanController extends Controller
       })->get();
 
 
-    return view('asset_management.data_alsintan.create_alsintan', compact('categories', 'merks', 'sensors'));
+    return view('admin.asset_management.data_alsintan.create_alsintan', compact('categories', 'merks', 'sensors'));
   }
 
   public function store(Request $request)
@@ -114,7 +114,7 @@ class DataAlsintanController extends Controller
     $busVoltages = $sensorData->pluck('bus');
     $loadVoltages = $sensorData->pluck('load');
 
-    return view('asset_management.data_alsintan.show_alsintan', compact(
+    return view('admin.asset_management.data_alsintan.show_alsintan', compact(
       'alsintan',
       'latestData',
       'gpsData',
@@ -148,7 +148,7 @@ class DataAlsintanController extends Controller
     $sensors = SensorData::select('sensor_id')->distinct()->get();
 
 
-    return view('asset_management.data_alsintan.edit_alsintan', compact('alsintan', 'categories', 'merks', 'sensors'));
+    return view('admin.asset_management.data_alsintan.edit_alsintan', compact('alsintan', 'categories', 'merks', 'sensors'));
   }
 
   public function update(Request $request, $id)
@@ -185,6 +185,6 @@ class DataAlsintanController extends Controller
     }
     $alsintan->save();
 
-    return redirect()->route('alsintan.show', $alsintan->id)->with('success', 'Data alsintan berhasil diperbarui.');
+    return redirect()->route('admin.alsintan.show', $alsintan->id)->with('success', 'Data alsintan berhasil diperbarui.');
   }
 }

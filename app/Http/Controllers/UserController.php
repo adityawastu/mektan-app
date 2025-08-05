@@ -12,15 +12,15 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('user_management.index_user', compact('users'));
+        return view('admin.user_management.index_user', compact('users'));
     }
     public function show()
     {
-        return view('user_management.show_user');
+        return view('admin.user_management.show_user');
     }
     public function create()
     {
-        return view('user_management.create_user');
+        return view('admin.user_management.create_user');
     }
     public function store(Request $request)
     {

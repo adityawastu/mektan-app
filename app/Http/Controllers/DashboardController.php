@@ -33,7 +33,7 @@ class DashboardController extends Controller
         $labels = $kategoriData->keys();
         $data = $kategoriData->values();
 
-        return view('dashboard.index', compact(
+        return view('admin.dashboard.index', compact(
             'totalAlsintan',
             'runningAlsintan',
             'labels',

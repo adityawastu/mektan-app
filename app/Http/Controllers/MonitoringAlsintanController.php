@@ -8,6 +8,6 @@ class MonitoringAlsintanController extends Controller
 {
     public function index()
     {
-        return view('asset_management.monitoring_aktivitas');
+        return view('admin.asset_management.monitoring_aktivitas');
     }
 }

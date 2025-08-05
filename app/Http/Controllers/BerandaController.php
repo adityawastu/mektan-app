@@ -10,6 +10,6 @@ class BerandaController extends Controller
     public function index()
     {
         $user = Auth::user(); // Ambil data user yang login
-        return view('beranda.index', compact('user'));
+        return view('admin.beranda.index', compact('user'));
     }
 }

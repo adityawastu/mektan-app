@@ -11,7 +11,7 @@ class ServiceHistoryController extends Controller
     public function create($id)
     {
         $alsintan = DataAlsintan::findOrFail($id);
-        return view('asset_management.data_alsintan.service_history.create_history', compact('alsintan'));
+        return view('admin.asset_management.data_alsintan.service_history.create_history', compact('alsintan'));
     }
 
     public function store(Request $request)

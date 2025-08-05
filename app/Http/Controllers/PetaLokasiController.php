@@ -19,7 +19,7 @@ class PetaLokasiController extends Controller
             return $item->sensor && $item->sensor->created_at > now()->subMinutes(5);
         });
 
-        return view('asset_management.peta_lokasi.index', compact('activeAlsintans'));
+        return view('admin.asset_management.peta_lokasi.index', compact('activeAlsintans'));
     }
 
     public function show($sensor_id)
@@ -39,7 +39,7 @@ class PetaLokasiController extends Controller
         $totalDistance = $this->hitungJarak($dataSensor);
         $usageDuration = $this->hitungDurasi($dataSensor);
 
-        return view('asset_management.peta_lokasi.peta_lokasi_alsintan', compact(
+        return view('admin.asset_management.peta_lokasi.peta_lokasi_alsintan', compact(
             'alat',
             'latestData',
             'averageSpeed',
