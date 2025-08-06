@@ -1,14 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\BerandaController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PetaLokasiController;
-use App\Http\Controllers\DataAlsintanController;
-use App\Http\Controllers\ServiceHistoryController;
-use App\Http\Controllers\MonitoringAlsintanController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\BerandaController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PetaLokasiController;
+use App\Http\Controllers\Admin\DataAlsintanController;
+use App\Http\Controllers\Admin\ServiceHistoryController;
+use App\Http\Controllers\Admin\MonitoringAlsintanController;
 
 //auth
 Route::get('/', function () {

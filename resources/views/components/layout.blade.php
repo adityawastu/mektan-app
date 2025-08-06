@@ -22,7 +22,7 @@
    @endif
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   <title>GreenTek</title>
+   <title>Simon Alsintan</title>
    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 
 </head>

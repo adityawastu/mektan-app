@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\DataAlsintan;
+use App\Http\Controllers\Controller;
+
+use App\Models\Admin\DataAlsintan;
 use Illuminate\Http\Request;
-use App\Models\ServiceHistory;
+use App\Models\Admin\ServiceHistory;
 
 class ServiceHistoryController extends Controller
 {

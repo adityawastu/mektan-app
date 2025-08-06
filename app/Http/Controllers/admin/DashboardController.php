@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\DataAlsintan;
-use App\Models\Category;
-use App\Models\SensorData;
+use App\Http\Controllers\Controller;
+use App\Models\Admin\DataAlsintan;
+use App\Models\Admin\Category;
+use App\Models\Admin\SensorData;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller

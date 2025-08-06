@@ -20,7 +20,7 @@
       @viteReactRefresh
       @vite(['resources/js/app.js', 'resources/css/app.css'])
    @endif
-   <title>GreenTek</title>
+   <title>Simon Alsintan</title>
 </head>
 
 <body class="bg-gray-100">
@@ -28,17 +28,6 @@
       <!-- Kiri: Ilustrasi -->
       <div class="hidden md:flex md:w-3/4 bg-cover bg-center relative"
          style="background-image: url('/images/balai.png');">
-         {{-- <div class="absolute inset-0 bg-white bg-opacity-70 backdrop-blur-sm"></div> --}}
-         {{-- <div class="relative z-10 flex flex-col justify-center items-center text-center px-10 text-gray-800">
-            <img src="{{ asset('images/illustrasi-smb.svg') }}" alt="Student Admission" class="w-64 mb-6">
-            <h2 class="text-xl font-medium">Selamat Datang di</h2>
-            <h1 class="text-3xl font-extrabold text-gray-900">STUDENT ADMISSION</h1>
-            <p class="mt-2 text-sm font-medium">Seleksi Mahasiswa Baru Telkom University</p>
-            <p class="text-sm">Admisi - Universitas Telkom</p>
-            <div class="mt-6">
-               <img src="{{ asset('images/situ-logo.png') }}" class="w-32 mx-auto" alt="SITU Logo">
-            </div>
-         </div> --}}
       </div>
 
       <!-- Kanan: Form Login -->
@@ -46,7 +35,7 @@
          <div class="w-full max-w-md">
             <div class="text-center mb-8">
                <img src="{{ asset('images/logo-mektan.png') }}" alt="Logo" class="w-20 mx-auto mb-2">
-               <h2 class="text-lg text-green-600 font-semibold">GreenTrek/Balai Mekanisasi Pertanian</h2>
+               <h2 class="text-lg text-green-600 font-semibold">Sistem Monitoring Alat Pertanian</h2>
             </div>
 
             <form method="POST" action="{{ route('login') }}" class="space-y-6">
@@ -62,7 +51,7 @@
                   <input type="password" name="password" id="password" placeholder="••••••••"
                      class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                      required>
-                  <span class="absolute right-3 top-10 text-gray-400 text-sm cursor-pointer">👁</span>
+
                </div>
 
                <button type="submit"

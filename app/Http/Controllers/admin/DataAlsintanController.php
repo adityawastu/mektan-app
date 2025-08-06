@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Merk;
-use App\Models\Category;
-use App\Models\SensorData;
-use App\Models\DataAlsintan;
+use App\Http\Controllers\Controller;
+
+use App\Models\Admin\Merk;
+use App\Models\Admin\Category;
+use App\Models\Admin\SensorData;
+use App\Models\Admin\DataAlsintan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +21,7 @@ class DataAlsintanController extends Controller
 
     // Transformasi data di dalam paginasi, tambahkan status dan waktu terakhir data sensor
     $alsintansPaginated->getCollection()->transform(function ($item) {
-      $latestSensor = \App\Models\SensorData::where('sensor_id', $item->sensor_id)
+      $latestSensor = \App\Models\Admin\SensorData::where('sensor_id', $item->sensor_id)
         ->latest()
         ->first();
 
